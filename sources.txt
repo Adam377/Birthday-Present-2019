@@ -1,0 +1,3 @@
+Graphics Sources:
+- Balloons: https://opengameart.org/content/sprites-from-porcupop
+- Flame: https://opengameart.org/content/flame-animation
