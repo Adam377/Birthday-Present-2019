@@ -4,7 +4,7 @@ public abstract class balloon
   //members
   protected int x, y, dy;
   private int distance;
-  private int yOrig; //stores original value of 'y'
+  private int startPos; //stores original value of 'y'
   
   //constructor
   private balloon(int x, int y, int dy)
@@ -13,13 +13,17 @@ public abstract class balloon
     this.y = y;
     this.dy = dy;
     
-    if(this.y == 0) //if 'y' is 0, then balloon moves down the screen
+    if(this.y == 0)
     {
-      yOrig = 0;
+      //If the randomly generated value for y is 0, then that balloon will
+      //start from the bottom of the screen and move up
+      startPos = 0;
     }
-    else //if 'y' is 1, balloon moves up the screen
+    else
     {
-      yOrig = 1;
+      //If the randomly generated value for y is 1, then that balloon will
+      //start from the top of the screen and move down
+      startPos = 1;
       this.y = height;
     }
   }
@@ -27,21 +31,25 @@ public abstract class balloon
   //methods
   public void balloonMovement()
   {
-    if(yOrig == 0)
+    if(startPos == 0)
     {
+      //Balloon will start from the bottom of the screen and move up
+      //it by increasing its y co-ordinate
       y = y + dy;
     }
     else
     {
+      //Balloon will start at top of the screen and move down
+      //by decreasing its y co-ordinate
       y = y - dy;
     }
   }
   
-  //Get/Set Y
   public int getBalloonY()
   {
     return y;
   }
+  
   public void setBalloonY(int y)
   {
     this.y = y;
@@ -50,6 +58,7 @@ public abstract class balloon
   //Gets overridden in all balloon subclasses
   protected void balloonRender()
   {
+    
   }
   
   private void balloonCollision() //doesn't work

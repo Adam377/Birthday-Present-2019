@@ -25,11 +25,13 @@ class cake
   public void cakeRender()
   {    
     rectMode(CORNER);
-    rect(x,y,100,50); //cake base - add colour later
+    rect(x,y,100,50); //cake base
     rect(x*2,y-30,5,30); //candle
     
     fireFrame++;
-    switch(fireFrame) //flame animation
+    
+    //Animation for the flame on the cake running at 20FPS.
+    switch(fireFrame)
     {
       case 0:
         image(fireFlame1,x+35,y-55,30,30);

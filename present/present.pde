@@ -11,7 +11,7 @@ int popped = 0; //increments when a balloon is 'popped'
 cake cakeGraphic;
 
 enum mode{SPLASH, MAIN, END};
-mode screen = mode.SPLASH; //creating variable screen of type mode and setting its value to SPLASH
+mode screen = mode.SPLASH;
 
 public void setup()
 {
@@ -31,7 +31,7 @@ public void draw()
       text("Press ENTER", width/3, height/2);
       
       textSize(15);
-      text("Aneesa's Birthday Present 2019 - created 17/05/2019", 0, 15);//this really didn't need 5 months to develop
+      text("Aneesa's Birthday Present 2019 - created 17/05/2019", 0, 15);
       
       text("© Adam Haigh 2019", 0, height-10);
       
@@ -46,19 +46,20 @@ public void draw()
       background(#FFC0CB); //pink
       textAnimation();
       
-      for(balloon balloonVar : balloonArray) //for every balloon object in the balloonArray arrayList
+      for(balloon b : balloonArray)
       {
-        if(balloonVar != null)
+        if(b != null)
         {
-          balloonVar.balloonMovement();
-          balloonVar.balloonRender();
+          b.balloonMovement();
+          b.balloonRender();
           //balloonVar.balloonCollision();
         }
       }
       
       for(int i=0; i<balloonArray.size(); i++)
       {
-        if(balloonArray.get(i).getBalloonY()>=height || balloonArray.get(i).getBalloonY()<=-35) //if a balloon goes off-screen, it is removed from the arrayList
+        //If a balloon goes off-screen, it is removed from the arrayList
+        if(balloonArray.get(i).getBalloonY()>=height || balloonArray.get(i).getBalloonY()<=-35)
         {
           balloonArray.remove(i);
           popCount++;
@@ -66,15 +67,16 @@ public void draw()
         }
       }
       
-      if(popCount == balloonCount) //if all the balloons have been removed from the screen, you can go to the end screen
+      if(popCount == balloonCount)
       {
+        //If all the balloons have been removed from the screen, you can go to the end screen
         textSize(20);
         text("Press ENTER", width/2, height-15);
       }
       break;
     
     case END:
-      background(#8B008B); //dark magenta
+      background(#8B008B); //dark magenta - reference to Aneesa's Outlook picture colour
       fill(255);
       textSize(35);
       textAlign(CENTER);
@@ -111,13 +113,16 @@ public void textAnimation()
   //println("frame = " + frame);
   textSize(40);
   textAlign(LEFT);
+  
+  //Birthday message. Could've thought of something more original
   text("HAPPY BIRTHDAY", width/3, 200);
-  text("ANEESA!", width/2.5, 300); //birthday message. Could've thought of something more original
+  text("ANEESA!", width/2.5, 300);
   text("HAVE AN AMAZING DAY!", width/4, 400);
   
   frame++;
   
-  if(popCount != balloonCount) //animation runs while not all the balloons have been popped
+  //Animation runs while not all the balloons have been popped
+  if(popCount != balloonCount)
   {
     switch(frame)
     {
@@ -149,32 +154,37 @@ public void textAnimation()
 
 public void keyPressed()
 {
-  if(key == ENTER && screen == mode.SPLASH) //if you're on the start screen
+  //If you're on the start screen
+  if(key == ENTER && screen == mode.SPLASH)
   {
     screen = mode.MAIN;
   }
   
-  if(key == ENTER && screen == mode.MAIN && popCount == balloonCount) //you can go to the next screen when all the balloons have 'popped'
+  //You can go to the next screen when all the balloons have 'popped'
+  if(key == ENTER && screen == mode.MAIN && popCount == balloonCount)
   {
     screen = mode.END;
   }
 }
 
-public void mousePressed() //click on the balloons to 'pop' them
+public void mousePressed()
 {
+  //Click on the balloons to 'pop' them
   for(int i=0; i<balloonArray.size(); i++)
   {
-    if(balloonArray.get(i).x<mouseX && balloonArray.get(i).x+30>mouseX && balloonArray.get(i).y<mouseY && balloonArray.get(i).y+30>mouseY) //if the mouse is in the balloon graphic
+    //if the mouse is in the balloon graphic
+    if(balloonArray.get(i).x<mouseX && balloonArray.get(i).x+30>mouseX && balloonArray.get(i).y<mouseY && balloonArray.get(i).y+30>mouseY)
     {
       balloonArray.remove(i);
       balloonCount--;
       
-      popped++; //for debugging purposes
+      popped++;
       println("popped = " + popped);
     }
   }
   
-  if(screen == mode.END) //reset varaibles when the code 'restarts'
+  //Reset varaibles when the code 'restarts'
+  if(screen == mode.END)
   {
     screen = mode.SPLASH;
     popCount = 0;
